@@ -1,0 +1,5 @@
+--compilers ts-node/register
+--full-trace
+--watch
+--watch-extensions ts
+src/**/*.spec.ts
