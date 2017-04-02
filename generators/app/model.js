@@ -6,72 +6,8 @@ function snakeToCamel(s) {
   return s.replace(/(_\w)/g, m => m[1].toUpperCase());
 }
 
-function kebabToCamel(s) {
-  return s.replace(/(-\w)/g, m => m[1].toUpperCase());
-}
-
 function toCapital(s) {
   return s.charAt(0).toUpperCase() + s.slice(1);
-}
-
-module.exports = {
-  prompting: (self) => {
-    return co(function* () {
-      const props = yield self.prompt([{
-        type: 'input',
-        name: 'basicName',
-        message: 'Model name? (snake_case)',
-      }, {
-        type: 'confirm',
-        name: 'rest',
-        message: 'Create REST API?',
-      }]);
-
-      if (props.rest) {
-        props.plural = (yield self.prompt({
-          type: 'input',
-          name: 'plural',
-          message: 'Plural name? (snake_case)',
-        })).plural;
-      }
-
-      props.properties = [];
-      while (true) {
-        const property = yield self.prompt({
-          type: 'input',
-          name: 'name',
-          message: 'Property name? (camelCase) - leave blank for done',
-        });
-
-        if (!property.name) {
-          break;
-        }
-
-        Object.assign(property, yield self.prompt([{
-          type: 'input',
-          name: 'type',
-          message: 'Property type?',
-          default: 'string',
-        }, {
-          type: 'confirm',
-          name: 'required',
-          message: 'Required?',
-        }]));
-
-        props.properties.push(property);
-      }
-
-      self.props = props;
-    });
-  },
-
-  writing: (self) => {
-    const props = self.props;
-    const args = buildArgs(props);
-    createModel(self, args);
-    updateModel(args);
-    props.rest && addController(self, args);
-  },
 }
 
 function buildArgs(props) {
@@ -82,7 +18,7 @@ function buildArgs(props) {
     pluralName: props.plural,
     properties: 'id?: string;\n    create_time?: Date;',
     inputSchema: '',
-    keys: `'id',\n        'create_time',\n`,
+    keys: '\'id\',\n        \'create_time\',\n',
     columns: props.properties.map(property => property.name).join(', '),
     values: props.properties.map(property => `\${${property.name}}`).join(', '),
   };
@@ -135,13 +71,6 @@ function updateModel(args) {
   } catch (err) {
     console.error(`   ${chalk.red('error')} src/model/index.ts not exist`);
   }
-}
-
-function addController(self, args) {
-  createController(self, args);
-  updateController(args);
-  updatePolicyConfig(args);
-  updateRouteConfig(args);
 }
 
 function createController(self, args) {
@@ -213,3 +142,68 @@ function updateRouteConfig(args) {
     console.error(`   ${chalk.red('error')} src/config/routes.ts not exist`);
   }
 }
+
+function addController(self, args) {
+  createController(self, args);
+  updateController(args);
+  updatePolicyConfig(args);
+  updateRouteConfig(args);
+}
+
+module.exports = {
+  prompting: self => co(function* () {
+    const props = yield self.prompt([{
+      type: 'input',
+      name: 'basicName',
+      message: 'Model name? (snake_case)',
+    }, {
+      type: 'confirm',
+      name: 'rest',
+      message: 'Create REST API?',
+    }]);
+
+    if (props.rest) {
+      props.plural = (yield self.prompt({
+        type: 'input',
+        name: 'plural',
+        message: 'Plural name? (snake_case)',
+      })).plural;
+    }
+
+    props.properties = [];
+    while (true) {
+      const property = yield self.prompt({
+        type: 'input',
+        name: 'name',
+        message: 'Property name? (camelCase) - leave blank for done',
+      });
+
+      if (!property.name) {
+        break;
+      }
+
+      Object.assign(property, yield self.prompt([{
+        type: 'input',
+        name: 'type',
+        message: 'Property type?',
+        default: 'string',
+      }, {
+        type: 'confirm',
+        name: 'required',
+        message: 'Required?',
+      }]));
+
+      props.properties.push(property);
+    }
+
+    self.props = props;
+  }),
+
+  writing: (self) => {
+    const props = self.props;
+    const args = buildArgs(props);
+    createModel(self, args);
+    updateModel(args);
+    props.rest && addController(self, args);
+  },
+};
