@@ -29,11 +29,11 @@ class App {
         this.express.use(bodyParser.json());
         this.express.use(bodyParser.urlencoded({ extended: false }));
         this.express.use(passport.initialize());
-        this.express.use(addResponses);
     }
 
     // Configure API endpoints.
     private routes(): void {
+        this.express.use(addResponses);
         this.express.use('/api/v1/', Engine);
     }
 

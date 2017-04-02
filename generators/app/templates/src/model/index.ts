@@ -1,6 +1,5 @@
 import { IMain, IDatabase } from 'pg-promise';
 import * as pgPromise from 'pg-promise';
-import * as monitor from 'pg-monitor';
 
 // import repos here
 
@@ -18,10 +17,7 @@ const options = {
     },
 };
 
-
 pgp = pgPromise(options);
-
-// monitor.attach(options);
 
 export const Model = <IDatabase<Extensions>&Extensions>pgp(pgConfig);
 
