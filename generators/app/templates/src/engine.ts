@@ -2,7 +2,6 @@ import { Router, Request, Response, NextFunction } from './yoshi';
 import * as Config from './config';
 import * as Controllers from './controllers';
 import * as Policies from './policies';
-import { addResponses } from './responses';
 
 const allowedMethods = ['get', 'post', 'delete', 'put', 'patch'];
 
@@ -73,7 +72,7 @@ export class Engine {
                 const funcToRun = this.getControllerFunc(controller, func);
                 const policy = this.buildPolicies(controller, func);
 
-                this.router[method](url, addResponses, policy, funcToRun);
+                this.router[method](url, policy, funcToRun);
             } catch (err) {
                 console.error(err);
                 console.error(`Error Occured while processing - '${key}': '${Config.routes[key]}'`);

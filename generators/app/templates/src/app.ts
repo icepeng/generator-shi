@@ -7,6 +7,7 @@ import * as passport from 'passport';
 import Engine from './engine';
 
 import { NotFoundError, ErrorHandler } from './controllers/error';
+import { addResponses } from './responses';
 
 // Creates and configures an ExpressJS web server.
 class App {
@@ -28,6 +29,7 @@ class App {
         this.express.use(bodyParser.json());
         this.express.use(bodyParser.urlencoded({ extended: false }));
         this.express.use(passport.initialize());
+        this.express.use(addResponses);
     }
 
     // Configure API endpoints.
