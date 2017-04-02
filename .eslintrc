@@ -9,6 +9,7 @@
       }
     ],
     "no-param-reassign": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "no-constant-condition": ["error", { "checkLoops": false }]
   }
 }

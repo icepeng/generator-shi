@@ -25,9 +25,7 @@ module.exports = class extends Generator {
 
   prompting() {
     // Have Yeoman greet the user.
-    this.log(yosay(
-      `Welcome to the slick ${chalk.red('YOSHI')} generator!`,
-    ));
+    this.log(yosay(`Welcome to the slick ${chalk.red('YOSHI')} generator!`));
 
     return generators[this.options.target].prompting(this);
   }
