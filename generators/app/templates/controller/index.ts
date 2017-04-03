@@ -34,7 +34,7 @@ export const <%= modelName %>Controller = {
 
     add: async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const input = req.body;
+            const input: <%= interfaceName %> = req.body;
             const <%= modelName %> = await Model.<%= modelName %>.add(input);
             return res.ok({
                 <%= modelName %>,
@@ -63,7 +63,7 @@ export const <%= modelName %>Controller = {
     edit: async (req: Request, res: Response, next: NextFunction) => {
         try {
             const query = req.params.id;
-            const input = req.body;
+            const input: <%= interfaceName %> = req.body;
             const <%= modelName %> = await Model.<%= modelName %>.edit(query, input);
             if (!<%= modelName %>) {
                 return res.notFound({
