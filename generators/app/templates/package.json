@@ -1,11 +1,10 @@
 {
-  "name": "<%= name %>",
+  "name": "unicorn-api",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "gulp",
-    "test": "export PATH=$(pwd)/node_modules/.bin:$PATH; nyc --require ts-node/register _mocha --opts test/mocha-watch.opts",
-    "test:single": "export PATH=$(pwd)/node_modules/.bin:$PATH; nyc --require ts-node/register _mocha --opts test/mocha.opts",
+    "test": "export PATH=$(pwd)/node_modules/.bin:$PATH; nyc --require ts-node/register _mocha --opts test/mocha.opts",
     "lint": "tslint \"src/**/*.ts\" --project tsconfig.json --type-check",
     "lint:fix": "tslint \"src/**/*.ts\" --project tsconfig.json --type-check --fix"
   },
@@ -33,10 +32,13 @@
     "instrument": true
   },
   "dependencies": {
+    "@types/humps": "^1.1.2",
+    "argon2": "^0.15.0",
     "body-parser": "~1.15.2",
     "cookie-parser": "~1.4.3",
     "debug": "^2.2.0",
     "express": "~4.14.0",
+    "humps": "^2.0.0",
     "joi": "^10.2.0",
     "jsonwebtoken": "^7.3.0",
     "morgan": "~1.7.0",

@@ -1,14 +1,12 @@
 import { Request, Response, NextFunction } from '../../yoshi';
 import { Model, <%= interfaceName %> } from '../../model';
-import { inputValidator } from './validator';
 
 export const <%= modelName %>Controller = {
 
     getAll: async (req: Request, res: Response, next: NextFunction) => {
         try {
             const <%= pluralName %> = await Model.<%= modelName %>.all();
-            res.ok({
-                message: 'Success',
+            return res.ok({
                 <%= pluralName %>,
             });
         } catch (err) {
@@ -20,16 +18,15 @@ export const <%= modelName %>Controller = {
         try {
             const query = req.params.id;
             const <%= modelName %> = await Model.<%= modelName %>.find(query);
-            if (<%= modelName %>) {
-                res.ok({
-                    message: 'Success',
-                    <%= modelName %>,
-                });
-            } else {
-                res.notFound({
+            if (!<%= modelName %>) {
+                return res.notFound({
                     message: 'No <%= modelName %> found with the given id.',
                 });
             }
+
+            return res.ok({
+                <%= modelName %>,
+            });
         } catch (err) {
             next(err);
         }
@@ -37,10 +34,9 @@ export const <%= modelName %>Controller = {
 
     add: async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const input = inputValidator(req.body);
+            const input = req.body;
             const <%= modelName %> = await Model.<%= modelName %>.add(input);
-            res.ok({
-                message: 'Success',
+            return res.ok({
                 <%= modelName %>,
             });
         } catch (err) {
@@ -51,15 +47,14 @@ export const <%= modelName %>Controller = {
     remove: async (req: Request, res: Response, next: NextFunction) => {
         try {
             const query = req.params.id;
-            if (await Model.<%= modelName %>.remove(query)) {
-                res.ok({
-                    message: 'Success',
-                });
-            } else {
-                res.notFound({
+            const result = await Model.<%= modelName %>.remove(query);
+            if (!result) {
+                return res.notFound({
                     message: 'No <%= modelName %> found with the given id.',
                 });
             }
+
+            return res.ok();
         } catch (err) {
             next(err);
         }
@@ -68,18 +63,17 @@ export const <%= modelName %>Controller = {
     edit: async (req: Request, res: Response, next: NextFunction) => {
         try {
             const query = req.params.id;
-            const input = inputValidator(req.body);
+            const input = req.body;
             const <%= modelName %> = await Model.<%= modelName %>.edit(query, input);
-            if (<%= modelName %>) {
-                res.ok({
-                    message: 'Success',
-                    <%= modelName %>,
-                });
-            } else {
-                res.notFound({
+            if (!<%= modelName %>) {
+                return res.notFound({
                     message: 'No <%= modelName %> found with the given id.',
                 });
             }
+
+            return res.ok({
+                <%= modelName %>,
+            });
         } catch (err) {
             next(err);
         }

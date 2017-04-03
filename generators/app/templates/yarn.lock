@@ -44,6 +44,10 @@
     "@types/express-serve-static-core" "*"
     "@types/serve-static" "*"
 
+"@types/humps@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@types/humps/-/humps-1.1.2.tgz#fbcaf596d20ff2ed78f8f511c5d6a943b51101d6"
+
 "@types/joi@^10.0.0":
   version "10.0.1"
   resolved "https://registry.yarnpkg.com/@types/joi/-/joi-10.0.1.tgz#d6fd34d357b79931f655bf80a87374f1c0f90728"
@@ -1592,6 +1596,10 @@ http-signature@~1.1.0:
     assert-plus "^0.2.0"
     jsprim "^1.2.2"
     sshpk "^1.7.0"
+
+humps@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/humps/-/humps-2.0.0.tgz#dd4a423e9784626fe7b9f19fde0baff659b40173"
 
 iconv-lite@0.4.13:
   version "0.4.13"

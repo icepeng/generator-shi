@@ -20,12 +20,12 @@ function buildArgs(props) {
     inputSchema: '',
     keys: '\'id\',\n        \'create_time\',\n',
     columns: props.properties.map(property => property.name).join(', '),
-    values: props.properties.map(property => `\${${property.name}}`).join(', '),
+    values: props.properties.map(property => `\${${snakeToCamel(property.name)}}`).join(', '),
   };
   props.properties.forEach((property) => {
-    args.properties = args.properties.concat(`\n    ${property.name}: ${property.type};`);
-    args.inputSchema = args.inputSchema.concat(`        ${property.name}: Joi.${property.type}()${property.required ? '.required()' : '.default()'},\n`);
-    args.keys = args.keys.concat(`        '${property.name}',\n`);
+    args.properties = args.properties.concat(`\n    ${snakeToCamel(property.name)}: ${property.type};`);
+    args.inputSchema = args.inputSchema.concat(`        ${snakeToCamel(property.name)}: Joi.${property.type}()${property.required ? '.required()' : '.default()'},\n`);
+    args.keys = args.keys.concat(`        '${snakeToCamel(property.name)}',\n`);
   });
   return args;
 }
@@ -73,6 +73,21 @@ function updateModel(args) {
   }
 }
 
+function updateValidators(args) {
+  try {
+    rewrite({
+      file: 'src/controllers/validators.ts',
+      needle: '// export validators here',
+      splicable: [
+        `export { ${args.modelName}Validator } from './${args.modelName}/validator';`,
+      ],
+    });
+    console.log(`   ${chalk.yellow('update')} src/controllers/validators.ts`);
+  } catch (err) {
+    console.error(`   ${chalk.red('error')} src/controllers/validators.ts not exist`);
+  }
+}
+
 function createController(self, args) {
   self.fs.copyTpl(
     self.templatePath('controller/index.ts'),
@@ -86,6 +101,7 @@ function createController(self, args) {
     self.templatePath('controller/validator.ts'),
     self.destinationPath(`src/controllers/${args.modelName}/validator.ts`),
     args);
+  updateValidators(args);
 }
 
 function updateController(args) {
@@ -175,7 +191,7 @@ module.exports = {
       const property = yield self.prompt({
         type: 'input',
         name: 'name',
-        message: 'Property name? (camelCase) - leave blank for done',
+        message: 'Property name? (snake_case) - leave blank for done',
       });
 
       if (!property.name) {

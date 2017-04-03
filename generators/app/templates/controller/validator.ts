@@ -1,8 +1,17 @@
-import { <%= interfaceName %> } from '../../model';
+import { Request, Response, NextFunction } from '../../yoshi';
 import * as Joi from 'joi';
 
-export function inputValidator(role: any): <%= interfaceName %> {
+export function <%= modelName %>Validator(req: Request, res: Response, next: NextFunction) {
     const schema = Joi.object().keys({
 <%= inputSchema %>    });
-    return Joi.attempt(role, schema);
+    
+    const { error, value } = Joi.validate(req.body, schema);
+    if (error) {
+        return res.badRequest({
+            message: error.message,
+        });
+    }
+
+    req.body = value;
+    next();
 }

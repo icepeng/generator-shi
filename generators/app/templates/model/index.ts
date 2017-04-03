@@ -19,7 +19,7 @@ export class <%= interfaceName %>Repo {
         this.db.none('TRUNCATE TABLE "<%= tableName %>" CASCADE');
 
     add = (params: <%= interfaceName %>): Promise<<%= interfaceName %> & Shared> =>
-        this.db.one('INSERT INTO "<%= tableName %>"(<%= columns %> '
+        this.db.one('INSERT INTO "<%= tableName %>"(<%= columns %>) '
             + 'VALUES(<%= values %>) '
             + 'RETURNING *', params, (role: <%= interfaceName %>) => role)
 

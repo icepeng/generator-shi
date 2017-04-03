@@ -97,7 +97,7 @@
 
     "trailing-comma": [true, {"multiline": "always", "singeline": "never"}],
     "arrow-parens": [true, "ban-single-arg-parens"],
-    "cyclomatic-complexity": [true, 10],
+    "cyclomatic-complexity": [true, 5],
     "arrow-return-shorthand": [true],
     "only-arrow-functions": [true, "allow-declarations", "allow-named-functions"],
     "object-literal-shorthand": true,

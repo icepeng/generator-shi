@@ -25,6 +25,7 @@ class App {
 
     // Configure Express middleware.
     private middleware(): void {
+        this.express.use(addResponses);
         this.express.use(logger('dev'));
         this.express.use(bodyParser.json());
         this.express.use(bodyParser.urlencoded({ extended: false }));
@@ -33,7 +34,6 @@ class App {
 
     // Configure API endpoints.
     private routes(): void {
-        this.express.use(addResponses);
         this.express.use('/api/v1/', Engine);
     }
 
