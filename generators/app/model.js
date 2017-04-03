@@ -128,9 +128,9 @@ function updatePolicyConfig(args) {
         `${args.modelName}Controller: {`,
         '    getAll: [],',
         '    getOne: [],',
-        '    add: [],',
+        `    add: ['${args.modelName}'Validator],`,
         '    remove: [],',
-        '    edit: [],',
+        `    edit: ['${args.modelName}'Validator],`,
         '},',
       ],
     });
@@ -150,8 +150,7 @@ function updateRouteConfig(args) {
         `'GET /${args.pluralName}/:id': '${args.modelName}Controller.getOne',`,
         `'POST /${args.pluralName}': '${args.modelName}Controller.add',`,
         `'DELETE /${args.pluralName}/:id': '${args.modelName}Controller.remove',`,
-        `'PUT /${args.pluralName}/:id': '${args.modelName}Controller.edit',`,
-        '',
+        `'PUT /${args.pluralName}/:id': '${args.modelName}Controller.edit',\n`,
       ],
     });
     console.log(`   ${chalk.yellow('update')} src/config/routes.ts`);
