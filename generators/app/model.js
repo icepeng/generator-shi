@@ -151,6 +151,7 @@ function updateRouteConfig(args) {
         `'POST /${args.pluralName}': '${args.modelName}Controller.add',`,
         `'DELETE /${args.pluralName}/:id': '${args.modelName}Controller.remove',`,
         `'PUT /${args.pluralName}/:id': '${args.modelName}Controller.edit',`,
+        '',
       ],
     });
     console.log(`   ${chalk.yellow('update')} src/config/routes.ts`);
