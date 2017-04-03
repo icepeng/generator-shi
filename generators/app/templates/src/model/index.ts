@@ -18,7 +18,7 @@ const options = {
     },
     receive: (data: any) => {
         camelizeColumnNames(data);
-    }
+    },
 };
 
 function camelizeColumnNames(data: any) {
