@@ -16,9 +16,9 @@ function buildArgs(props) {
     modelName: snakeToCamel(props.basicName),
     interfaceName: toCapital(snakeToCamel(props.basicName)),
     pluralName: props.plural,
-    properties: 'id?: string;\n    create_time?: Date;',
+    properties: 'id?: string;\n    createTime?: Date;',
     inputSchema: '',
-    keys: '\'id\',\n        \'create_time\',\n',
+    keys: '\'id\',\n        \'createTime\',\n',
     columns: props.properties.map(property => property.name).join(', '),
     values: props.properties.map(property => `\${${snakeToCamel(property.name)}}`).join(', '),
   };

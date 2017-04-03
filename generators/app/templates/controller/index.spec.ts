@@ -42,7 +42,7 @@ describe('<%= interfaceName %>', () => {
         });
         sandbox.stub(Model.<%= modelName %>, 'add', (input: any) => {
             input.id = 'existing_id';
-            input.create_time = '2017-02-23';
+            input.createTime = '2017-02-23';
             return Promise.resolve(input);
         });
         sandbox.stub(Model.<%= modelName %>, 'remove', (id: string) => {
@@ -54,7 +54,7 @@ describe('<%= interfaceName %>', () => {
         sandbox.stub(Model.<%= modelName %>, 'edit', (id: string, input: any) => {
             if (id === 'existing_id') {
                 input.id = id;
-                input.create_time = '2017-02-23';
+                input.createTime = '2017-02-23';
                 return Promise.resolve(input);
             }
             return Promise.resolve(null);

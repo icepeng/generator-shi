@@ -42,7 +42,7 @@ export const Model = <IDatabase<Extensions>&Extensions>pgp(pgConfig);
 
 export interface Shared {
     id: string;
-    create_time: Date;
+    createTime: Date;
 }
 
 // export interfaces here
