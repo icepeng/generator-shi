@@ -1,5 +1,5 @@
 {
-  "name": "unicorn-api",
+  "name": "<%= name %>",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -32,8 +32,6 @@
     "instrument": true
   },
   "dependencies": {
-    "@types/humps": "^1.1.2",
-    "argon2": "^0.15.0",
     "body-parser": "~1.15.2",
     "cookie-parser": "~1.4.3",
     "debug": "^2.2.0",
@@ -48,6 +46,7 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
+    "@types/humps": "^1.1.2",
     "@types/bcrypt": "^1.0.0",
     "@types/bluebird": "^3.0.37",
     "@types/body-parser": "0.0.33",

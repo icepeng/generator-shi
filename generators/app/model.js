@@ -128,9 +128,9 @@ function updatePolicyConfig(args) {
         `${args.modelName}Controller: {`,
         '    getAll: [],',
         '    getOne: [],',
-        `    add: ['${args.modelName}'Validator],`,
+        `    add: ['${args.modelName}Validator'],`,
         '    remove: [],',
-        `    edit: ['${args.modelName}'Validator],`,
+        `    edit: ['${args.modelName}Validator'],`,
         '},',
       ],
     });
