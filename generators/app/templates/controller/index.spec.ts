@@ -41,9 +41,9 @@ describe('<%= interfaceName %>', () => {
             }
             return Promise.resolve(null);
         });
-        sandbox.stub(Model.<%= modelName %>, 'add').callsFake((input: any) => {
+        sandbox.stub(Model.<%= modelName %>, 'add').callsFake((input: <%=interfaceName %>) => {
             input.id = 'existing_id';
-            input.createTime = '2017-02-23';
+            input.createTime = new Date();
             return Promise.resolve(input);
         });
         sandbox.stub(Model.<%= modelName %>, 'remove').callsFake((id: string) => {
@@ -52,11 +52,9 @@ describe('<%= interfaceName %>', () => {
             }
             return Promise.resolve(0);
         });
-        sandbox.stub(Model.<%= modelName %>, 'edit').callsFake((id: string, input: any) => {
+        sandbox.stub(Model.<%= modelName %>, 'edit').callsFake((id: string, input: <%=interfaceName %>) => {
             if (id === 'existing_id') {
-                input.id = id;
-                input.createTime = '2017-02-23';
-                return Promise.resolve(input);
+                return Promise.resolve({ ...<%= modelName %>Mock, ...input });
             }
             return Promise.resolve(null);
         });
