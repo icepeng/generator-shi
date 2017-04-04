@@ -1,3 +1,4 @@
+/* tslint:disable:no-unused-expression */
 import * as mocha from 'mocha';
 import * as chai from 'chai';
 import { addResponses } from '../../responses';

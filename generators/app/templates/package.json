@@ -5,8 +5,8 @@
   "scripts": {
     "start": "gulp",
     "test": "export PATH=$(pwd)/node_modules/.bin:$PATH; nyc --require ts-node/register _mocha --opts test/mocha.opts",
-    "lint": "tslint \"src/**/*.ts\" --project tsconfig.json --type-check",
-    "lint:fix": "tslint \"src/**/*.ts\" --project tsconfig.json --type-check --fix"
+    "lint": "tslint \"src/**/*.ts\" --project tsconfig.json",
+    "lint:fix": "tslint \"src/**/*.ts\" --project tsconfig.json --fix"
   },
   "nyc": {
     "include": [
