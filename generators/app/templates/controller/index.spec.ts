@@ -33,25 +33,25 @@ describe('<%= interfaceName %>', () => {
             // write mock data here
         };
         sandbox = sinon.sandbox.create();
-        sandbox.stub(Model.<%= modelName %>, 'all', () => Promise.resolve([<%= modelName %>Mock]));
-        sandbox.stub(Model.<%= modelName %>, 'find', (id: string) => {
+        sandbox.stub(Model.<%= modelName %>, 'all').callsFake(() => Promise.resolve([<%= modelName %>Mock]));
+        sandbox.stub(Model.<%= modelName %>, 'find').callsFake((id: string) => {
             if (id === 'existing_id') {
                 return Promise.resolve(<%= modelName %>Mock);
             }
             return Promise.resolve(null);
         });
-        sandbox.stub(Model.<%= modelName %>, 'add', (input: any) => {
+        sandbox.stub(Model.<%= modelName %>, 'add').callsFake((input: any) => {
             input.id = 'existing_id';
             input.createTime = '2017-02-23';
             return Promise.resolve(input);
         });
-        sandbox.stub(Model.<%= modelName %>, 'remove', (id: string) => {
+        sandbox.stub(Model.<%= modelName %>, 'remove').callsFake((id: string) => {
             if (id === 'existing_id') {
                 return Promise.resolve(1);
             }
             return Promise.resolve(0);
         });
-        sandbox.stub(Model.<%= modelName %>, 'edit', (id: string, input: any) => {
+        sandbox.stub(Model.<%= modelName %>, 'edit').callsFake((id: string, input: any) => {
             if (id === 'existing_id') {
                 input.id = id;
                 input.createTime = '2017-02-23';
