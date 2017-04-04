@@ -1,5 +1,3 @@
-import App from '../../app';
-
 export function serverError(err: any = {}) {
     const res = this;
     if (!err.status) {
@@ -11,7 +9,7 @@ export function serverError(err: any = {}) {
     }
 
     console.error(err);
-    if (App.get('env') === 'development') {
+    if (process.env.NODE_ENV === 'development') {
         return res.status(500).json({
             message: err.message,
             stack: err.stack,
