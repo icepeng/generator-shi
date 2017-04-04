@@ -17,7 +17,7 @@ describe('<%= interfaceName %>', () => {
     let status: number, body: any;
     const <%= modelName %>Keys = [
         <%- keys %>    ];
-    const inputData = {
+    const inputData: <%=interfaceName %> = {
         // write input data here
     };
 
@@ -28,7 +28,7 @@ describe('<%= interfaceName %>', () => {
     });
 
     before(() => {
-        const <%= modelName %>Mock = {
+        const <%= modelName %>Mock: <%=interfaceName %> = {
             id: 'existing_id',
             // write mock data here
         };
@@ -169,7 +169,7 @@ describe('<%= interfaceName %>', () => {
     describe('edit', () => {
         beforeEach(done => {
             req.params.id = 'existing_id';
-            req.body = {
+            req.body: <%=interfaceName %> = {
                 // write edited value here
             };
             <%= modelName %>Controller.edit(req, res, next).then(() => {
@@ -186,7 +186,7 @@ describe('<%= interfaceName %>', () => {
         });
 
         it('should include edited <%= interfaceName %>', () => {
-            const <%= modelName %> = body.<%= modelName %>;
+            const <%= modelName %>: <%=interfaceName %> = body.<%= modelName %>;
             expect(<%= modelName %>).to.exist;
             expect(<%= modelName %>).to.have.all.keys(<%= modelName %>Keys);
             // expect edited value here
